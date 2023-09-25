@@ -1,6 +1,19 @@
 #!/usr/bin/env python3
-from __future__ import print_function
 
+##
+# @file opencv.py
+#
+# @brief Python script for PID line movement of ENPH353 robot in gazebo
+#
+# @section author_doxygen_example Author(s)
+# - Created by Avery Wong on 09/24/2023.
+#
+
+
+
+# Imports
+
+from __future__ import print_function
 import roslib
 roslib.load_manifest('enph353_ros_lab')
 import sys
@@ -10,15 +23,25 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from geometry_msgs.msg import Twist
+
+# Global constants
+
+## Threshold for PID to activate
 PTHRESH = 0
+## Dimensions of resized image
 WIDTH,HEIGHT = 320,240
+## The value to blur the image by
 BLUR = 25
+## The lower threshold value for Canny algorithm
 CANNY_LTHRESH = 50
+## The upper threshold value for Canny edge algorithm
 CANNY_HTHRESH = 150
+## The amount of pixels up from the bottom of the screen to detect edges from
 FROM_BOTTOM = 40
 
 class image_converter:
 
+  # Functions
   def __init__(self):
     self.image_pub = rospy.Publisher("image_topic_2",Image)
 
